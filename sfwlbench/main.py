@@ -371,6 +371,9 @@ def make_database_df(bench_id: str, databases: List[Database]) -> pd.DataFrame:
 
 
 def emit_value(value: Any) -> str:
+    if isinstance(value, float):
+        return f"{value:.20f}"
+
     if isinstance(value, Number) and not isinstance(value, bool):
         return str(value)
 
@@ -450,6 +453,12 @@ def output_results(
         ("query", query_df),
         ("timing", timing_df),
     ]:
+        with open(f"{table_name}.csv", "wb") as f:
+            df.to_csv(f, index=False)
+
+        # csv = df.to_csv(header=True, index=False)
+        # buf = StringIO(csv)
+
         # TODO: can't dump to CSV/Parquet and upload (schema mismatch)
         # buf = BytesIO()
         # df.to_parquet(buf)
@@ -477,6 +486,7 @@ def output_results(
         # response.raise_for_status()
 
         query = make_seafowl_query(df, table_name, schema)
+        print(query)
         query_seafowl(seafowl, query, access_token)
 
 
