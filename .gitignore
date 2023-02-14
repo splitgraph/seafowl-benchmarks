@@ -1,3 +1,4 @@
+.env
 taxi-data
 .mypy_cache
 *.pyc

@@ -144,10 +144,10 @@ class Seafowl(Database):
 
     def database_version_id(self) -> str:
         # TODO expose it somehow?
-        return "seafowl-0.1.0-dev.1"
+        return "seafowl-0.2.12"
 
     def database_version_id_human(self) -> str:
-        return "Seafowl 0.1.0-dev.1"
+        return "Seafowl 0.2.12"
 
     def __init__(self, endpoint: str) -> None:
         self.endpoint = endpoint
@@ -255,10 +255,10 @@ class PostgreSQLParquet(Database):
         return "postgresql-parquet-fdw"
 
     def database_version_id(self) -> str:
-        return "postgresql-14.4-parquet-fdw"
+        return "postgresql-14.7-parquet-fdw"
 
     def database_version_id_human(self) -> str:
-        return "PostgreSQL 14.4 (parquet_fdw)"
+        return "PostgreSQL 14.7 (parquet_fdw)"
 
 
 class PostgreSQL(PostgreSQLParquet):
@@ -292,10 +292,10 @@ class PostgreSQL(PostgreSQLParquet):
         return "postgresql"
 
     def database_version_id(self) -> str:
-        return "postgresql-14.4"
+        return "postgresql-14.7"
 
     def database_version_id_human(self) -> str:
-        return "PostgreSQL 14.4"
+        return "PostgreSQL 14.7"
 
 
 class Timing(NamedTuple):
@@ -494,8 +494,8 @@ if __name__ == "__main__":
     setup_taxi()
 
     databases = [
-        PostgreSQL(POSTGRES),
         PostgreSQLParquet(POSTGRES),
+        PostgreSQL(POSTGRES),
         DuckDB(),
         Seafowl(SEAFOWL),
     ]
